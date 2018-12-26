@@ -4,10 +4,10 @@
 using System.Collections.Generic;
 using System.Threading;
 using System.Threading.Tasks;
-using EnterpriseBot.Service;
 using Microsoft.Bot.Builder;
 using Microsoft.Bot.Schema;
 using Microsoft.Bot.Builder.Dialogs;
+using EnterpriseBot.Dialogs;
 
 namespace EnterpriseBot
 {
@@ -62,18 +62,7 @@ namespace EnterpriseBot
                 {
                     case (ActivityType.Table):
                         {
-                            // Echo back to the user whatever they typed.
-                            List<string> messages = TableService.GetReplyMessage(turnContext.Activity.Text);
-                            List<IMessageActivity> resourceResponses = new List<IMessageActivity>();
-                            foreach (string message in messages)
-                            {
-                                IMessageActivity messageActivity = Activity.CreateMessageActivity();
-                                messageActivity.Text = message;
-                                messageActivity.TextFormat = "plain";
-                                messageActivity.Locale = "en-Us";
-                                resourceResponses.Add(messageActivity);
-                            }
-                            await turnContext.SendActivitiesAsync(resourceResponses.ToArray());
+                            await dc.BeginDialogAsync(nameof(TableFlow));
                             break;
                         }
                 }
