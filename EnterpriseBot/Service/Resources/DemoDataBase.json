@@ -73,17 +73,17 @@
   ],
   "DiningHalls": [
     {
-      "Building": "Tower 1",
+      "Building": "Tower1",
       "Id": "Main Hall 1",
       "Capability": 85.0
     },
     {
-      "Building": "Tower 1",
+      "Building": "Tower1",
       "Id": "Main Hall 2",
       "Capability": 95.0
     },
     {
-      "Building": "Tower 2",
+      "Building": "Tower2",
       "Id": "Grab&Go",
       "Capability": 10.0
     }

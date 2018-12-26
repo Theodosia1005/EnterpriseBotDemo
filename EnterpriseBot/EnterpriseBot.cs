@@ -84,6 +84,15 @@ namespace EnterpriseBot
             {
                 return ActivityType.Table;
             }
+            if (request.Contains("dining"))
+            {
+                return ActivityType.Table;
+            }
+            if (request.Contains("less people"))
+            {
+                return ActivityType.Table;
+            }
+
             return ActivityType.Other;
         }
     }
