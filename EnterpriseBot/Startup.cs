@@ -5,6 +5,7 @@ using System;
 using System.Linq;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.Bot.Builder;
 using Microsoft.Bot.Builder.Integration.AspNet.Core;
 using Microsoft.Bot.Configuration;
 using Microsoft.Bot.Connector.Authentication;
@@ -46,6 +47,15 @@ namespace EnterpriseBot
         /// <seealso cref="https://docs.microsoft.com/en-us/azure/bot-service/bot-service-manage-channels?view=azure-bot-service-4.0"/>
         public void ConfigureServices(IServiceCollection services)
         {
+            var dataStore = new MemoryStorage();
+            var userState = new UserState(dataStore);
+            var conversationState = new ConversationState(dataStore);
+
+            services.AddSingleton(dataStore);
+            services.AddSingleton(userState);
+            services.AddSingleton(conversationState);
+            services.AddSingleton(new BotStateSet(userState, conversationState));
+
             services.AddBot<EnterpriseBot>(options =>
             {
                 var secretKey = Configuration.GetSection("botFileSecret")?.Value;
@@ -68,6 +78,8 @@ namespace EnterpriseBot
                 {
                     await context.SendActivityAsync("Sorry, it looks like something went wrong.");
                 };
+
+                options.Middleware.Add(new AutoSaveStateMiddleware(userState, conversationState));
             });
         }
 

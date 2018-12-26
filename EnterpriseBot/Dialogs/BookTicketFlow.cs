@@ -30,6 +30,16 @@ namespace EnterpriseBot.Dialogs
             InitialDialogId = nameof(BookTicketFlow);
         }
 
+        protected override async Task<DialogTurnResult> OnBeginDialogAsync(DialogContext dc, object options, CancellationToken cancellationToken = default(CancellationToken))
+        {
+            return await base.OnBeginDialogAsync(dc, options, cancellationToken);
+        }
+
+        protected override async Task<DialogTurnResult> OnContinueDialogAsync(DialogContext dc, CancellationToken cancellationToken = default(CancellationToken))
+        {
+            return await base.OnContinueDialogAsync(dc, cancellationToken);
+        }
+
         public async Task<DialogTurnResult> GetLocationPromptDepartureTime(WaterfallStepContext sc, CancellationToken cancellationToken = default(CancellationToken))
         {
             return await sc.PromptAsync(promptDialogId, new PromptOptions { Prompt = sc.Context.Activity.CreateReply("When do you leave?") }, cancellationToken);
