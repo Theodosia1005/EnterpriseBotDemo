@@ -246,7 +246,7 @@ namespace EnterpriseBot.Service
                                 {
                                     messages.Add("Or you may considering go to " + diningHallAll.Building + ", the " + diningHallAll.Id + " there is " + diningHallAll.Capability + "% busy.");
                                 }
-
+                                messages.Add("#PIC#");
                             }
                             else
                             {
