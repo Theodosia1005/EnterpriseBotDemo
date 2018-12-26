@@ -1,8 +1,10 @@
 ﻿// Copyright (c) Microsoft Corporation. All rights reserved.
 // Licensed under the MIT License.
 
+using System.Collections.Generic;
 using System.Threading;
 using System.Threading.Tasks;
+using EnterpriseBot.Service;
 using Microsoft.Bot.Builder;
 using Microsoft.Bot.Schema;
 using Microsoft.Bot.Builder.Dialogs;
@@ -55,19 +57,45 @@ namespace EnterpriseBot
             }
             if (turnContext.Activity.Type == ActivityTypes.Message)
             {
-                if (turnContext.Activity.Text.Contains("parking") || turnContext.Activity.Text.Contains("cafeteria"))
+                ActivityType type = DispatchActivity(turnContext.Activity.Text);
+                switch (type)
                 {
-                    await dc.BeginDialogAsync(nameof(TableFlow));
+                    case (ActivityType.Table):
+                        {
+                            // Echo back to the user whatever they typed.
+                            List<string> messages = TableService.GetReplyMessage(turnContext.Activity.Text);
+                            List<IMessageActivity> resourceResponses = new List<IMessageActivity>();
+                            foreach (string message in messages)
+                            {
+                                IMessageActivity messageActivity = Activity.CreateMessageActivity();
+                                messageActivity.Text = message;
+                                messageActivity.TextFormat = "plain";
+                                messageActivity.Locale = "en-Us";
+                                resourceResponses.Add(messageActivity);
+                            }
+                            await turnContext.SendActivitiesAsync(resourceResponses.ToArray());
+                            break;
+                        }
                 }
-                else if (turnContext.Activity.Text.Contains("hotel"))
-                {
-                    await dc.BeginDialogAsync(nameof(QnAFlow));
-                }
-                else
-                {
-                    await dc.BeginDialogAsync(nameof(BookTicketFlow));
-                }
+                
             }
+        }
+
+        private enum ActivityType
+        {
+            Flow = 0,
+            Table = 1,
+            QnA = 2,
+            Other = 3
+        }
+
+        private ActivityType DispatchActivity(string request)
+        {
+            if (request.Contains("parking"))
+            {
+                return ActivityType.Table;
+            }
+            return ActivityType.Other;
         }
     }
 }

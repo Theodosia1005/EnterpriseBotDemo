@@ -1,0 +1,4 @@
+﻿#English
+ParkingFloor	parking .* at ([\w\d]+)
+DiningBuilding	in ([\S])
+DiningCapability	has|have .* (less) people

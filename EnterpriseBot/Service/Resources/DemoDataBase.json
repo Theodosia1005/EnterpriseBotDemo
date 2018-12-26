@@ -1,0 +1,91 @@
+{
+  "ParkingLots": [
+    {
+      "Floor": "B1",
+      "Id": "B1000",
+      "IsEmpty": true
+    },
+    {
+      "Floor": "B1",
+      "Id": "B1001",
+      "IsEmpty": false
+    },
+    {
+      "Floor": "B1",
+      "Id": "B1002",
+      "IsEmpty": false
+    },
+    {
+      "Floor": "B1",
+      "Id": "B1003",
+      "IsEmpty": false
+    },
+    {
+      "Floor": "B1",
+      "Id": "B1004",
+      "IsEmpty": false
+    },
+    {
+      "Floor": "B1",
+      "Id": "B1005",
+      "IsEmpty": false
+    },
+    {
+      "Floor": "B1",
+      "Id": "B1006",
+      "IsEmpty": false
+    },
+    {
+      "Floor": "B2",
+      "Id": "B2000",
+      "IsEmpty": true
+    },
+    {
+      "Floor": "B2",
+      "Id": "B2001",
+      "IsEmpty": true
+    },
+    {
+      "Floor": "B2",
+      "Id": "B2002",
+      "IsEmpty": true
+    },
+    {
+      "Floor": "B2",
+      "Id": "B2003",
+      "IsEmpty": false
+    },
+    {
+      "Floor": "B2",
+      "Id": "B2004",
+      "IsEmpty": true
+    },
+    {
+      "Floor": "B2",
+      "Id": "B2005",
+      "IsEmpty": true
+    },
+    {
+      "Floor": "B2",
+      "Id": "B2006",
+      "IsEmpty": false
+    }
+  ],
+  "DiningHalls": [
+    {
+      "Building": "Tower 1",
+      "Id": "Main Hall 1",
+      "Capability": 85.0
+    },
+    {
+      "Building": "Tower 1",
+      "Id": "Main Hall 2",
+      "Capability": 95.0
+    },
+    {
+      "Building": "Tower 2",
+      "Id": "Grab&Go",
+      "Capability": 10.0
+    }
+  ]
+}
