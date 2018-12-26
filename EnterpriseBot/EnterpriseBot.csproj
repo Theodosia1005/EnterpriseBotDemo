@@ -19,4 +19,16 @@
     <PackageReference Include="Microsoft.Bot.Connector" Version="4.2.0" />
     <PackageReference Include="Microsoft.Bot.Schema" Version="4.2.0" />
   </ItemGroup>
+
+  <ItemGroup>
+    <Content Update="Service\Resources\DemoDataBase.json">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Update="Models\Resources\ConditionTemplate.txt">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+  </ItemGroup>
 </Project>
