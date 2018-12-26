@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 using Microsoft.Bot.Builder.Dialogs;
 using System.Threading;
 
-namespace EnterpriseBot
+namespace EnterpriseBot.Dialogs
 {
     public class QnAFlow : ComponentDialog
     {

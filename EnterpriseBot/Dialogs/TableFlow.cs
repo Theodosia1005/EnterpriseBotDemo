@@ -4,8 +4,10 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.Bot.Builder.Dialogs;
 using System.Threading;
+using EnterpriseBot.Service;
+using Microsoft.Bot.Schema;
 
-namespace EnterpriseBot
+namespace EnterpriseBot.Dialogs
 {
     public class TableFlow : ComponentDialog
     {
@@ -25,14 +27,17 @@ namespace EnterpriseBot
 
         public async Task<DialogTurnResult> GetQuestion(WaterfallStepContext sc, CancellationToken cancellationToken = default(CancellationToken))
         {
-            if (sc.Context.Activity.Text.Contains("parking"))
+            List<string> messages = TableService.GetReplyMessage(sc.Context.Activity.Text);
+            List<IMessageActivity> resourceResponses = new List<IMessageActivity>();
+            foreach (string message in messages)
             {
-                await sc.Context.SendActivityAsync(sc.Context.Activity.CreateReply("There are 32 parking places on the basement 1 and 156 parking places on the basement 2."));
+                IMessageActivity messageActivity = Activity.CreateMessageActivity();
+                messageActivity.Text = message;
+                messageActivity.TextFormat = "plain";
+                messageActivity.Locale = "en-Us";
+                resourceResponses.Add(messageActivity);
             }
-            else
-            {
-                await sc.Context.SendActivityAsync(sc.Context.Activity.CreateReply("Cafeteria has 37% empty seats now."));
-            }
+            await sc.Context.SendActivitiesAsync(resourceResponses.ToArray());
 
             return await sc.EndDialogAsync(true);
         }
