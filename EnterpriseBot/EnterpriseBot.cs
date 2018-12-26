@@ -29,9 +29,8 @@ namespace EnterpriseBot
         /// <summary>
         /// Initializes a new instance of the class.
         /// </summary>                        
-        public EnterpriseBot()
+        public EnterpriseBot(ConversationState conversationState )
         {
-            conversationState = new ConversationState(new MemoryStorage());
             dialogs = new DialogSet(conversationState.CreateProperty<DialogState>(nameof(DialogState)));
             dialogs.Add(new TableFlow());
             dialogs.Add(new QnAFlow());
@@ -50,21 +49,26 @@ namespace EnterpriseBot
         /// <seealso cref="ConversationState"/>
         public async Task OnTurnAsync(ITurnContext turnContext, CancellationToken cancellationToken = default(CancellationToken))
         {
-            var dc = await dialogs.CreateContextAsync(turnContext);
-            if (dc.ActiveDialog != null)
-            {
-                await dc.ContinueDialogAsync();
-            }
             if (turnContext.Activity.Type == ActivityTypes.Message)
             {
-                ActivityType type = DispatchActivity(turnContext.Activity.Text);
-                switch (type)
+                var dc = await dialogs.CreateContextAsync(turnContext);
+                var results = await dc.ContinueDialogAsync(cancellationToken);
+                if (results.Status == DialogTurnStatus.Empty)
                 {
-                    case (ActivityType.Table):
-                        {
-                            await dc.BeginDialogAsync(nameof(TableFlow));
-                            break;
-                        }
+                    ActivityType type = DispatchActivity(turnContext.Activity.Text);
+                    switch (type)
+                    {
+                        case (ActivityType.Table):
+                            {
+                                await dc.BeginDialogAsync(nameof(TableFlow));
+                                break;
+                            }
+                        case ActivityType.Other:
+                            {
+                                await dc.BeginDialogAsync(nameof(BookTicketFlow));
+                                break;
+                            }
+                    }
                 }
                 
             }
