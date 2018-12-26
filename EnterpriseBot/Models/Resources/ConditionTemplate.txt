@@ -1,4 +1,4 @@
 ﻿#English
 ParkingFloor	parking .* at ([\w\d]+)
-DiningBuilding	in ([\S])
-DiningCapability	has|have .* (less) people
+DiningBuilding	in ([\w\d]+)
+DiningCapability	has|have|with .*(less|least) people

@@ -31,15 +31,8 @@ namespace EnterpriseBot.Models.Resources
                 string[] parts = line.Split("\t");
                 if (parts[0].Length > 0 && parts[1].Length > 0)
                 {
-                    try
-                    {
-                        ConditionType conditionType = Enum.Parse<ConditionType>(parts[0], true);
-                        templateMapping.Add(parts[1], conditionType);
-                    }
-                    catch (Exception e)
-                    {
-
-                    }
+                    ConditionType conditionType = Enum.Parse<ConditionType>(parts[0], true);
+                    templateMapping.Add(parts[1], conditionType);
                 }
             }
         }

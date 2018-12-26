@@ -84,6 +84,21 @@ namespace EnterpriseBot.Service
             return result;
         }
 
+        private static DiningHall FindMostEmptyDiningHalls(string building = "")
+        {
+            DiningHall result = null;
+            double capability = 100;
+            foreach (DiningHall diningHall in dataBase.DiningHalls)
+            {
+                if ((building == "" || diningHall.Building == building) && diningHall.Capability < capability)
+                {
+                    result = diningHall;
+                    capability = diningHall.Capability;
+                }
+            }
+            return result;
+        }
+
         public static List<string> GetReplyMessage(string request)
         {
             ConditionModel condition = new ConditionModel(request);
@@ -179,7 +194,72 @@ namespace EnterpriseBot.Service
                     }
                 case (TableType.DiningHalls):
                     {
-                        break;
+
+                        if (condition.DiningBuilding == "")
+                        {
+                            List<DiningHall> diningHalls;
+                            if (condition.DiningCapability < 0)
+                            {
+                                diningHalls = FindDiningHalls();
+                            }
+                            else
+                            {
+                                diningHalls = FindDiningHalls(capability: condition.DiningCapability);
+                            }
+                            if (diningHalls.Count == 0)
+                            {
+                                messages.Add("Sorry, all dining hall is quite busy know.");
+                                messages.Add("Here is the least busy one.");
+                                DiningHall diningHall = FindMostEmptyDiningHalls();
+                                messages.Add(diningHall.Id + " in " + diningHall.Building + " is " + diningHall.Capability + "% busy.");
+                            }
+                            else
+                            {
+                                messages.Add("I find " + diningHalls.Count + "dining hall for now.");
+                                int dispalyCount = 0;
+                                for (int i = 0; i < diningHalls.Count && dispalyCount < 3; i++)
+                                {
+                                    messages.Add(diningHalls[i].Id + " in " + diningHalls[i].Building + " is " + diningHalls[i].Capability + "% busy.");
+                                }
+                            
+                            }
+                        }
+                        else
+                        {
+                            List<DiningHall> diningHalls;
+                            if (condition.DiningCapability < 0)
+                            {
+                                diningHalls = FindDiningHalls(condition.DiningBuilding);
+                            }
+                            else
+                            {
+                                diningHalls = FindDiningHalls(condition.DiningBuilding, condition.DiningCapability);
+                            }
+                            if (diningHalls.Count == 0)
+                            {
+                                messages.Add("I can not find dining hall you want.");
+                                messages.Add("Here is the least busy one in " + condition.DiningBuilding + ".");
+                                DiningHall diningHall = FindMostEmptyDiningHalls(condition.DiningBuilding);
+                                messages.Add(diningHall.Id + " in " + diningHall.Building + " is " + diningHall.Capability + "% busy.");
+                                DiningHall diningHallAll = FindMostEmptyDiningHalls();
+                                if (diningHallAll.Building != condition.DiningBuilding)
+                                {
+                                    messages.Add("Or you may considering go to " + diningHallAll.Building + ", the " + diningHallAll.Id + " there is " + diningHallAll.Capability + "% busy.");
+                                }
+
+                            }
+                            else
+                            {
+                                messages.Add("I find " + diningHalls.Count + "dining hall for now.");
+                                int dispalyCount = 0;
+                                for (int i = 0; i < diningHalls.Count && dispalyCount < 3; i++)
+                                {
+                                    messages.Add(diningHalls[i].Id + " in " + diningHalls[i].Building + " is " + diningHalls[i].Capability + "% busy.");
+                                }
+                            }
+
+                        }
+                        return messages;
                     }
             }
             messages.Add("Sorry I don't understand");
