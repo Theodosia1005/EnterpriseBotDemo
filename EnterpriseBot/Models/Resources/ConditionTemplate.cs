@@ -8,16 +8,16 @@ using System.Threading.Tasks;
 
 namespace EnterpriseBot.Models.Resources
 {
-    public static class AskParameterTemplate
+    public static class ConditionTemplate
     {
-        private static Dictionary<string, AskParameterType> templateMapping;
+        private static Dictionary<string, ConditionType> templateMapping;
 
-        static AskParameterTemplate()
+        static ConditionTemplate()
         {
             // Read the regexs from data file.
-            templateMapping = new Dictionary<string, AskParameterType>();
-            var dir = Path.GetDirectoryName(typeof(AskParameterTemplate).Assembly.Location);
-            var resDir = Path.Combine(dir, @"Models\Resources\AskParameterTemplate.txt");
+            templateMapping = new Dictionary<string, ConditionType>();
+            var dir = Path.GetDirectoryName(typeof(ConditionModel).Assembly.Location);
+            var resDir = Path.Combine(dir, @"Models\Resources\ConditionTemplate.txt");
             StreamReader sr = new StreamReader(resDir, Encoding.Default);
             string line;
             while ((line = sr.ReadLine()) != null)
@@ -31,17 +31,24 @@ namespace EnterpriseBot.Models.Resources
                 string[] parts = line.Split("\t");
                 if (parts[0].Length > 0 && parts[1].Length > 0)
                 {
-                    AskParameterType askParameterType = Enum.Parse<AskParameterType>(parts[0], true);
-                    templateMapping.Add(parts[1], askParameterType);
+                    try
+                    {
+                        ConditionType conditionType = Enum.Parse<ConditionType>(parts[0], true);
+                        templateMapping.Add(parts[1], conditionType);
+                    }
+                    catch (Exception e)
+                    {
+
+                    }
                 }
             }
         }
 
-        public static List<AskParameterType> GetAskParameterTypes(string content)
+        public static Dictionary<ConditionType, string> GetConditionTypes(string content)
         {
             // return all parameter types that matches this content
             // for example, when and where will match ask location and ask time
-            List<AskParameterType> types = new List<AskParameterType>();
+            Dictionary<ConditionType, string> types = new Dictionary<ConditionType, string>();
             if (string.IsNullOrEmpty(content))
             {
                 return types;
@@ -52,7 +59,7 @@ namespace EnterpriseBot.Models.Resources
                 Regex regex = new Regex(key);
                 if (regex.IsMatch(content))
                 {
-                    types.Add(templateMapping[key]);
+                    types.Add(templateMapping[key], regex.Split(content)[1]);
                 }
             }
 

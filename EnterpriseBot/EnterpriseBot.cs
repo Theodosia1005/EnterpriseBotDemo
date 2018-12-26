@@ -1,8 +1,10 @@
 ﻿// Copyright (c) Microsoft Corporation. All rights reserved.
 // Licensed under the MIT License.
 
+using System.Collections.Generic;
 using System.Threading;
 using System.Threading.Tasks;
+using EnterpriseBot.Service;
 using Microsoft.Bot.Builder;
 using Microsoft.Bot.Schema;
 
@@ -44,9 +46,45 @@ namespace EnterpriseBot
             // see https://aka.ms/about-bot-activity-message to learn more about the message and other activity types
             if (turnContext.Activity.Type == ActivityTypes.Message)
             {
-                // Echo back to the user whatever they typed.             
-                await turnContext.SendActivityAsync("Hello World", cancellationToken: cancellationToken);
+                ActivityType type = DispatchActivity(turnContext.Activity.Text);
+                switch (type)
+                {
+                    case (ActivityType.Table):
+                        {
+                            // Echo back to the user whatever they typed.
+                            List<string> messages = TableService.GetReplyMessage(turnContext.Activity.Text);
+                            List<IMessageActivity> resourceResponses = new List<IMessageActivity>();
+                            foreach (string message in messages)
+                            {
+                                IMessageActivity messageActivity = Activity.CreateMessageActivity();
+                                messageActivity.Text = message;
+                                messageActivity.TextFormat = "plain";
+                                messageActivity.Locale = "en-Us";
+                                resourceResponses.Add(messageActivity);
+                            }
+                            await turnContext.SendActivitiesAsync(resourceResponses.ToArray());
+                            break;
+                        }
+                }
+                
             }
+        }
+
+        private enum ActivityType
+        {
+            Flow = 0,
+            Table = 1,
+            QnA = 2,
+            Other = 3
+        }
+
+        private ActivityType DispatchActivity(string request)
+        {
+            if (request.Contains("parking"))
+            {
+                return ActivityType.Table;
+            }
+            return ActivityType.Other;
         }
     }
 }
