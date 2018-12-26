@@ -7,6 +7,7 @@ using System.Threading.Tasks;
 using EnterpriseBot.Service;
 using Microsoft.Bot.Builder;
 using Microsoft.Bot.Schema;
+using Microsoft.Bot.Builder.Dialogs;
 
 namespace EnterpriseBot
 {
@@ -22,11 +23,19 @@ namespace EnterpriseBot
     /// <seealso cref="https://docs.microsoft.com/en-us/aspnet/core/fundamentals/dependency-injection?view=aspnetcore-2.1"/>
     public class EnterpriseBot : IBot
     {
+        private DialogSet dialogs;
+        private ConversationState conversationState; 
+
         /// <summary>
         /// Initializes a new instance of the class.
         /// </summary>                        
         public EnterpriseBot()
         {
+            conversationState = new ConversationState(new MemoryStorage());
+            dialogs = new DialogSet(conversationState.CreateProperty<DialogState>(nameof(DialogState)));
+            dialogs.Add(new TableFlow());
+            dialogs.Add(new QnAFlow());
+            dialogs.Add(new BookTicketFlow());
         }
 
         /// <summary>
@@ -41,9 +50,11 @@ namespace EnterpriseBot
         /// <seealso cref="ConversationState"/>
         public async Task OnTurnAsync(ITurnContext turnContext, CancellationToken cancellationToken = default(CancellationToken))
         {
-            // Handle Message activity type, which is the main activity type for shown within a conversational interface
-            // Message activities may contain text, speech, interactive cards, and binary or unknown attachments.
-            // see https://aka.ms/about-bot-activity-message to learn more about the message and other activity types
+            var dc = await dialogs.CreateContextAsync(turnContext);
+            if (dc.ActiveDialog != null)
+            {
+                await dc.ContinueDialogAsync();
+            }
             if (turnContext.Activity.Type == ActivityTypes.Message)
             {
                 ActivityType type = DispatchActivity(turnContext.Activity.Text);
