@@ -11,6 +11,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <PackageReference Include="AdaptiveCards" Version="1.1.0" />
     <PackageReference Include="Microsoft.AspNetCore" Version="2.1.3" />
     <PackageReference Include="Microsoft.AspNetCore.All" Version="2.0.8" />
     <PackageReference Include="Microsoft.Bot.Builder" Version="4.2.0" />
@@ -22,6 +23,16 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\microsoft.bot.solutions\Microsoft.Bot.Solutions.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Content Update="AdaptiveCard\HotelCard.json">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Update="AdaptiveCard\TicketCard.json">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
     <Content Update="Service\Resources\DemoDataBase.json">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>

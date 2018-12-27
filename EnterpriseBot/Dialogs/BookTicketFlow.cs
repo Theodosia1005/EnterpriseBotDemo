@@ -4,6 +4,12 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.Bot.Builder.Dialogs;
 using System.Threading;
+using Microsoft.Bot.Schema;
+using Microsoft.Bot.Solutions.Extensions;
+using System.Collections.Specialized;
+using Microsoft.Bot.Solutions.Dialogs;
+using Microsoft.Bot.Solutions.Cards;
+using EnterpriseBot.AdaptiveCard;
 
 namespace EnterpriseBot.Dialogs
 {
@@ -30,16 +36,6 @@ namespace EnterpriseBot.Dialogs
             InitialDialogId = nameof(BookTicketFlow);
         }
 
-        protected override async Task<DialogTurnResult> OnBeginDialogAsync(DialogContext dc, object options, CancellationToken cancellationToken = default(CancellationToken))
-        {
-            return await base.OnBeginDialogAsync(dc, options, cancellationToken);
-        }
-
-        protected override async Task<DialogTurnResult> OnContinueDialogAsync(DialogContext dc, CancellationToken cancellationToken = default(CancellationToken))
-        {
-            return await base.OnContinueDialogAsync(dc, cancellationToken);
-        }
-
         public async Task<DialogTurnResult> GetLocationPromptDepartureTime(WaterfallStepContext sc, CancellationToken cancellationToken = default(CancellationToken))
         {
             return await sc.PromptAsync(promptDialogId, new PromptOptions { Prompt = sc.Context.Activity.CreateReply("When do you leave?") }, cancellationToken);
@@ -52,7 +48,25 @@ namespace EnterpriseBot.Dialogs
 
         public async Task<DialogTurnResult> GetReturnTimeConfirmTicket(WaterfallStepContext sc, CancellationToken cancellationToken = default(CancellationToken))
         {
-            return await sc.PromptAsync(promptDialogId, new PromptOptions { Prompt = sc.Context.Activity.CreateReply("I will book these tickets for you. Please confirm:") }, cancellationToken);
+            var botResponse = new BotResponse("I will book these tickets for you. Please confirm:", "I will book these tickets for you. Please confirm:");
+            var replyToConversation = sc.Context.Activity.CreateReply(botResponse);
+            //replyToConversation.AttachmentLayout = AttachmentLayoutTypes.Carousel;
+            replyToConversation.Attachments = new List<Attachment>();
+            var replyMessage1 = sc.Context.Activity.CreateAdaptiveCardReply(
+                botResponse,
+                "AdaptiveCard/TicketCard.json",
+                new CardData(),
+                null,
+                new StringDictionary() { { "Location", "Beijing - Seattle" }, { "DepartTime", "12/25 12:15" }, { "ArriveTime", "12/25 6:30" } });
+            var replyMessage2 = sc.Context.Activity.CreateAdaptiveCardReply(
+                botResponse,
+                "AdaptiveCard/TicketCard.json",
+                new CardData(),
+                null,
+                new StringDictionary() { { "Location", "Beijing - Seattle" }, { "DepartTime", "12/30 7:30" }, { "ArriveTime", "12/31 14:45" } });
+            replyToConversation.Attachments.Add(replyMessage1.Attachments[0]);
+            replyToConversation.Attachments.Add(replyMessage2.Attachments[0]);
+            return await sc.PromptAsync(promptDialogId, new PromptOptions { Prompt = replyToConversation }, cancellationToken);
         }
 
         public async Task<DialogTurnResult> AskForBookHotel(WaterfallStepContext sc, CancellationToken cancellationToken = default(CancellationToken))
@@ -62,7 +76,32 @@ namespace EnterpriseBot.Dialogs
 
         public async Task<DialogTurnResult> ShowHotelInfo(WaterfallStepContext sc, CancellationToken cancellationToken = default(CancellationToken))
         {
-            return await sc.PromptAsync(promptDialogId, new PromptOptions { Prompt = sc.Context.Activity.CreateReply("These are some hotels in Seattle:") }, cancellationToken);
+            var botResponse = new BotResponse("These are some hotels in Seattle:", "These are some hotels in Seattle:");
+            var replyToConversation = sc.Context.Activity.CreateReply(botResponse);
+            replyToConversation.AttachmentLayout = AttachmentLayoutTypes.Carousel;
+            replyToConversation.Attachments = new List<Attachment>();
+            var replyMessage1 = sc.Context.Activity.CreateAdaptiveCardReply(
+                botResponse,
+                "AdaptiveCard/HotelCard.json",
+                new CardData(),
+                null,
+                new StringDictionary() { { "Name", "Hotel 1" }, { "Address", "Street 1" }, { "Price", "$180/day" } });
+            var replyMessage2 = sc.Context.Activity.CreateAdaptiveCardReply(
+                botResponse,
+                "AdaptiveCard/HotelCard.json",
+                new CardData(),
+                null,
+                new StringDictionary() { { "Name", "Hotel 2" }, { "Address", "Street 2" }, { "Price", "$180/day" } });
+            var replyMessage3 = sc.Context.Activity.CreateAdaptiveCardReply(
+                botResponse,
+                "AdaptiveCard/HotelCard.json",
+                new CardData(),
+                null,
+                new StringDictionary() { { "Name", "Hotel 3" }, { "Address", "Street 3" }, { "Price", "$180/day" } });
+            replyToConversation.Attachments.Add(replyMessage1.Attachments[0]);
+            replyToConversation.Attachments.Add(replyMessage2.Attachments[0]);
+            replyToConversation.Attachments.Add(replyMessage3.Attachments[0]);
+            return await sc.PromptAsync(promptDialogId, new PromptOptions { Prompt = replyToConversation }, cancellationToken);
         }
 
         public async Task<DialogTurnResult> ConfirmHotel(WaterfallStepContext sc, CancellationToken cancellationToken = default(CancellationToken))
