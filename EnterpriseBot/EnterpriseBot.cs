@@ -63,6 +63,11 @@ namespace EnterpriseBot
                                 await dc.BeginDialogAsync(nameof(TableFlow));
                                 break;
                             }
+                        case (ActivityType.QnA):
+                            {
+                                await dc.BeginDialogAsync(nameof(QnAFlow));
+                                break;
+                            }
                         case ActivityType.Other:
                             {
                                 await dc.BeginDialogAsync(nameof(BookTicketFlow));
@@ -96,7 +101,10 @@ namespace EnterpriseBot
             {
                 return ActivityType.Table;
             }
-
+            if (request.ToLower().Contains("garage") || request.ToLower().Contains("how much") )
+            {
+                return ActivityType.QnA;
+            }
             return ActivityType.Other;
         }
     }
