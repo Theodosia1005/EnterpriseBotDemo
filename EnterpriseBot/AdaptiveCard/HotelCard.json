@@ -1,0 +1,28 @@
+{
+    "$schema": "http://adaptivecards.io/schemas/adaptive-card.json",
+    "type": "AdaptiveCard",
+    "version": "1.0",
+    "id": "CalendarCard",
+    "body": [
+        {
+            "type": "Container",
+            "items": [
+                {
+                    "type": "TextBlock",
+                    "text": "{Name}",
+                    "weight": "bolder",
+                    "size": "large",
+                    "maxLines": 1
+                },
+                {
+                    "type": "TextBlock",
+                    "text": "{Address}"
+                },
+                {
+                    "type": "TextBlock",
+                    "text": "{Price}"
+                }
+            ]
+        }
+    ]
+}
