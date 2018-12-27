@@ -57,13 +57,13 @@ namespace EnterpriseBot.Dialogs
                 "AdaptiveCard/TicketCard.json",
                 new CardData(),
                 null,
-                new StringDictionary() { { "Location", "Beijing - Seattle" }, { "DepartTime", "12/25 12:15" }, { "ArriveTime", "12/25 6:30" } });
+                new StringDictionary() { { "Location", "Beijing - Seattle" }, { "DepartTime", "1/8 12:15" }, { "ArriveTime", "1/8 6:30" } });
             var replyMessage2 = sc.Context.Activity.CreateAdaptiveCardReply(
                 botResponse,
                 "AdaptiveCard/TicketCard.json",
                 new CardData(),
                 null,
-                new StringDictionary() { { "Location", "Beijing - Seattle" }, { "DepartTime", "12/30 7:30" }, { "ArriveTime", "12/31 14:45" } });
+                new StringDictionary() { { "Location", "Seattle - Beijing" }, { "DepartTime", "1/13 7:30" }, { "ArriveTime", "1/14 14:45" } });
             replyToConversation.Attachments.Add(replyMessage1.Attachments[0]);
             replyToConversation.Attachments.Add(replyMessage2.Attachments[0]);
             return await sc.PromptAsync(promptDialogId, new PromptOptions { Prompt = replyToConversation }, cancellationToken);
@@ -85,19 +85,19 @@ namespace EnterpriseBot.Dialogs
                 "AdaptiveCard/HotelCard.json",
                 new CardData(),
                 null,
-                new StringDictionary() { { "Name", "Hotel 1" }, { "Address", "Street 1" }, { "Price", "$180/day" } });
+                new StringDictionary() { { "Name", "Sheraton" }, { "Address", "235 Street" }, { "Price", "$180/day" } });
             var replyMessage2 = sc.Context.Activity.CreateAdaptiveCardReply(
                 botResponse,
                 "AdaptiveCard/HotelCard.json",
                 new CardData(),
                 null,
-                new StringDictionary() { { "Name", "Hotel 2" }, { "Address", "Street 2" }, { "Price", "$180/day" } });
+                new StringDictionary() { { "Name", "Hyatt" }, { "Address", "115 Street" }, { "Price", "$160/day" } });
             var replyMessage3 = sc.Context.Activity.CreateAdaptiveCardReply(
                 botResponse,
                 "AdaptiveCard/HotelCard.json",
                 new CardData(),
                 null,
-                new StringDictionary() { { "Name", "Hotel 3" }, { "Address", "Street 3" }, { "Price", "$180/day" } });
+                new StringDictionary() { { "Name", "Marriott" }, { "Address", "387 Street" }, { "Price", "$170/day" } });
             replyToConversation.Attachments.Add(replyMessage1.Attachments[0]);
             replyToConversation.Attachments.Add(replyMessage2.Attachments[0]);
             replyToConversation.Attachments.Add(replyMessage3.Attachments[0]);
@@ -106,7 +106,7 @@ namespace EnterpriseBot.Dialogs
 
         public async Task<DialogTurnResult> ConfirmHotel(WaterfallStepContext sc, CancellationToken cancellationToken = default(CancellationToken))
         {
-            return await sc.PromptAsync(promptDialogId, new PromptOptions { Prompt = sc.Context.Activity.CreateReply("Ok. I will book the Hotel 2 from 12/25 to 12/30. Is this fine?") }, cancellationToken);
+            return await sc.PromptAsync(promptDialogId, new PromptOptions { Prompt = sc.Context.Activity.CreateReply("Ok. I will book the Hyatt from 1/8 to 1/13. Is this fine?") }, cancellationToken);
         }
 
         public async Task<DialogTurnResult> BookHotel(WaterfallStepContext sc, CancellationToken cancellationToken = default(CancellationToken))
