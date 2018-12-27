@@ -4,6 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.Bot.Builder.Dialogs;
 using System.Threading;
+using EnterpriseBot.Service;
 
 namespace EnterpriseBot.Dialogs
 {
@@ -25,8 +26,9 @@ namespace EnterpriseBot.Dialogs
 
         public async Task<DialogTurnResult> GetQuestion(WaterfallStepContext sc, CancellationToken cancellationToken = default(CancellationToken))
         {
-            await sc.Context.SendActivityAsync(sc.Context.Activity.CreateReply("200 dollars a day"));
-
+            var client = new BertClient();
+            var answer = await client.PassageQueryAsync(sc.Context.Activity.Text);
+            await sc.Context.SendActivityAsync(sc.Context.Activity.CreateReply(answer));
             return await sc.EndDialogAsync(true);
         }
     }
