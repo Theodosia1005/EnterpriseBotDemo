@@ -1,0 +1,160 @@
+﻿@page
+@model AboutModel
+@{
+    ViewData["Title"] = "About";
+}
+@*<h2>@ViewData["Title"]</h2>
+<h3>@Model.Message</h3>*@
+
+<head>
+    <title>Bootstrap Example</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <style>
+        /* Set height of the grid so .sidenav can be 100% (adjust if needed) */
+        .row.content {
+            height: 500px
+        }
+
+        /* Set gray background color and 100% height */
+        .sidenav {
+            background-color: #f1f1f1;
+            height: 100%;
+        }
+
+        /* Set black background color, white text and some padding */
+        footer {
+            background-color: #555;
+            color: white;
+            padding: 15px;
+        }
+    </style>
+</head>
+
+<div class="container-fluid">
+    <div class="row content">
+        <div class="col-sm-2 sidenav">
+            <h4>Passage Logs</h4>
+            <ul class="nav nav-pills nav-stacked">
+                <li class="active"><a href="#section1">View By Topics</a></li>
+                <li style="padding-left: 15px;"><a style="color: rgba(51, 51, 51, 1);" href="#section1">Business travle</a></li>
+                <li style="padding-left: 15px;"><a style="color: rgba(51, 51, 51, 1);" href="#section1">ESPP</a></li>
+                <li style="padding-left: 15px;"><a style="color: rgba(51, 51, 51, 1);" href="#section1">Vacation and Holidays</a></li>
+                <li ><a style="color: rgba(51, 51, 51, 1);" href="#section2">View by Dates</a></li>
+            </ul>
+            <br>
+        </div>
+
+        <div class="col-sm-3 sidenav side pull-right">
+            <h2>Onboarding Passages</h2>
+            <br>
+            <label style="font-size: 14px; font-weight: bold;" for="usr">
+                Url:
+            </label>
+            <div class="form-group" style="padding-bottom: 15px;">
+                <label style="font-size: 10px;" size="3">Hrweb: https://microsoft.sharepoint.com/sites/hrw/</label>
+                <div class="col-sm-12" style="padding-left: 0px; float: left;">
+                    <input class="form-control"  style="width: 75%; float: left;" id="usr" type="text">
+                    <button class="btn btn-primary btn-md pull-right" style="width: 20%; float: right;" type="button">Add</button>
+                </div>
+                @*<div class="col-sm-12" style="padding-right: 0px; float: left;">
+                    <button class="btn btn-primary btn-md pull-right" style="width: 20%; float: left;" type="button">Add</button>
+                </div>*@
+            </div>
+            <br>
+            <label style="font-size: 14px; font-weight: bold;" for="usr">
+                Files:
+            </label>
+            <div class="form-group" style="padding-bottom: 15px;">
+                <label style="font-size: 10px;" size="3">
+                    Security HandBook: SecurityHandBook.docx
+                </label>
+                <div class="col-sm-12" style="padding-left: 0px; float: left;">
+                    <input class="form-control" style="width: 75%; float: left;" id="usr" type="text">
+                    <button class="btn btn-primary btn-md pull-right" style="width: 20%; float: right;" type="button">Add</button>
+                </div>
+            </div>
+            <br>
+            <label style="font-size: 14px; font-weight: bold;" for="usr">
+                Passages:
+            </label>
+            <div class="form-group" style="padding-bottom: 15px;">
+                <label style="font-size: 10px;" size="3">
+                    VisaDesk: Visa Desk notes: ……………………
+                </label>
+                <div class="col-sm-12" style="padding-left: 0px; float: left;">
+                    <input class="form-control" style="width: 75%; float: left;" id="usr" type="text">
+                    <button class="btn btn-primary btn-md pull-right" style="width: 20%; float: right;" type="button">Add</button>
+                </div>
+            </div>
+            <br>
+        </div>
+
+        <div class="col-sm-6">
+            <h2>01/02/2019</h2>
+            <br>
+            <table class="table table-bordered" width="50">
+                <thead>
+                    <tr>
+                        <th></th>
+                        <th>QnA</th>
+                        <th>Source</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>Add</td>
+                        <td>
+                            Q: how should I apply a business travel letter
+                        </td>
+                        <td>
+                            Hrweb
+                        </td>
+                    </tr>
+                    <tr>
+                        <td></td>
+                        <td>
+                            A: you can go to this website to check for more details https://microsoft.sharepoint.com/sites/hrw/Pages/businesstravellettersabout.aspx
+                        </td>
+                        <td></td>
+                    </tr>
+                    <tr>
+                        <td>Add</td>
+                        <td>
+                            Q: how should I apply an U.S. B1 visa
+                        </td>
+                        <td>
+                            VisaDesk
+                        </td>
+                    </tr>
+                    <tr>
+                        <td></td>
+                        <td>
+                            A: https://microsoft.sharepoint.com/sites/LCAWeb/home/immigration-and-international-travel/us-immigration/US-Non-Immigrant-Visas/B1-Visitors
+                        </td>
+                        <td></td>
+                    </tr>
+                    <tr>
+                        <td>Add</td>
+                        <td>
+                            Q: I got a bad cold during a business trip
+                        </td>
+                        <td>
+                            Security Handbook
+                        </td>
+                    </tr>
+                    <tr>
+                        <td></td>
+                        <td>
+                            A: Please contact VSOC +1 425 706 0000 for help
+                        </td>
+                        <td></td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
