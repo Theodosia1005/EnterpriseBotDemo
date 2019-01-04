@@ -1,0 +1,237 @@
+﻿@page
+@model IndexModel
+@{
+    ViewData["Title"] = "Home page";
+}
+
+    @*<div class="row">
+        <div class="item">
+            <img src="~/images/Title.PNG" alt="Visual Studio" class="img-responsive" />
+        </div>
+    </div>*@
+
+<head>
+    <title>Bootstrap Example</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <style>
+    /* Set height of the grid so .sidenav can be 100% (adjust if needed) */
+    .row.content {height: 500px}
+
+    /* Set gray background color and 100% height */
+    .sidenav {
+      background-color: #f1f1f1;
+      height: 100%;
+    }
+
+    /* Set black background color, white text and some padding */
+    footer {
+      background-color: #555;
+      color: white;
+      padding: 15px;
+    
+    }
+    </style>
+</head>
+
+    <div class="container-fluid">
+        <div class="row content">
+            <div class="col-sm-2 sidenav">
+                <h4>Table</h4>
+                <ul class="nav nav-pills nav-stacked">
+                    <li class="active"><a href="#section1">Parking Table</a></li>
+                    <li><a style="color: rgba(51, 51, 51, 1);" href="#section2">Cafeteria Table</a></li>
+                </ul><br>
+            </div>
+
+            <div class="col-sm-4 sidenav side pull-right">
+                <h2>Schema</h2>
+                <table class="table table-bordered" width="20">
+                    <thead>
+                        <tr>
+                            <th width="10">Name</th>
+                            <th width="10">Type</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>Id</td>
+                            <td>String</td>
+                        </tr>
+                        <tr>
+                            <td>Floor</td>
+                            <td>String</td>
+                        </tr>
+                        <tr>
+                            <td>IsEmpty</td>
+                            <td>Bool</td>
+                        </tr>
+                    </tbody>
+                </table>
+                <button class="btn btn-primary btn-md pull-right" style="width: 100%;" type="button">Add</button>
+            </div>
+
+            <div class="col-sm-6">
+                <h2>Parking Table</h2>
+                @*<form class="form-inline">
+            <div class="form-group">
+                <label for="inputWarning2" width="100">Utterance: </label>
+                <input type="text" class="form-control" id="inputWarning2" width="800">
+            </div>
+        </form>
+        <form class="form-inline">
+            <div class="form-group">
+                <label for="inputError2" width="100">SQL:</label>
+                <input type="text" class="form-control" id="inputError2" width="800">
+            </div>
+        </form>*@
+                @*<div class="form-group">
+            <label for="usr">Utterance:</label>
+            <input type="text" class="form-control" id="usr">
+        </div>
+        <div class="form-group">
+            <label for="sql">SQL:</label>
+            <input type="text" class="form-control" id="sql">
+        </div>*@
+                <form class="form-horizontal">
+                    <div class="form-group">
+                        <label class="control-label col-sm-2" for="email">Utterance:</label>
+                        <div class="col-sm-8">
+                            <input type="email" class="form-control" id="email">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="control-label col-sm-2" for="pwd">SQL:</label>
+                        <div class="col-sm-8">
+                            <input type="password" class="form-control" id="pwd">
+                        </div>
+                        <div class="col-sm-2">
+                            <button class="btn btn-primary btn-md pull-right" style="width: 100%;" type="button">Add</button>
+                        </div>
+                    </div>
+                    <hr>
+                </form>
+                    <div class="row">
+                        <div class="item">
+                            <img src="~/images/Sample1.PNG" alt="Visual Studio" class="img-responsive" />
+                        </div>
+                    </div>
+                    <hr>
+                    <div class="row">
+                        <div class="item">
+                            <img src="~/images/Sample2.PNG" alt="Visual Studio" class="img-responsive" />
+                        </div>
+                    </div>
+
+                    @*<h4><small>RECENT POSTS</small></h4>
+            <hr>
+            <h2>Officially Blogging</h2>
+            <h5><span class="glyphicon glyphicon-time"></span> Post by John Doe, Sep 24, 2015.</h5>
+            <h5><span class="label label-success">Lorem</span></h5><br>
+            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
+            <hr>*@
+
+            </div>
+
+
+        </div>
+    </div>
+
+    @*<footer class="container-fluid">
+        <p>Enterprise Bot</p>
+    </footer>*@
+
+
+    @*<div id="myCarousel" class="carousel slide" data-ride="carousel" data-interval="6000">
+            <ol class="carousel-indicators">
+                <li data-target="#myCarousel" data-slide-to="0" class="active"></li>
+                <li data-target="#myCarousel" data-slide-to="1"></li>
+                <li data-target="#myCarousel" data-slide-to="2"></li>
+            </ol>
+            <div class="carousel-inner" role="listbox">
+                <div class="item active">
+                    <img src="~/images/banner1.svg" alt="ASP.NET" class="img-responsive" />
+                    <div class="carousel-caption" role="option">
+                        <p>
+                            Learn how to build ASP.NET apps that can run anywhere.
+                            <a class="btn btn-default" href="https://go.microsoft.com/fwlink/?LinkID=525028&clcid=0x409">
+                                Learn More
+                            </a>
+                        </p>
+                    </div>
+                </div>
+                <div class="item">
+                    <img src="~/images/banner2.svg" alt="Visual Studio" class="img-responsive" />
+                    <div class="carousel-caption" role="option">
+                        <p>
+                            There are powerful new features in Visual Studio for building modern web apps.
+                            <a class="btn btn-default" href="https://go.microsoft.com/fwlink/?LinkID=525030&clcid=0x409">
+                                Learn More
+                            </a>
+                        </p>
+                    </div>
+                </div>
+                <div class="item">
+                    <img src="~/images/banner3.svg" alt="Microsoft Azure" class="img-responsive" />
+                    <div class="carousel-caption" role="option">
+                        <p>
+                            Learn how Microsoft's Azure cloud platform allows you to build, deploy, and scale web apps.
+                            <a class="btn btn-default" href="https://go.microsoft.com/fwlink/?LinkID=525027&clcid=0x409">
+                                Learn More
+                            </a>
+                        </p>
+                    </div>
+                </div>
+            </div>
+            <a class="left carousel-control" href="#myCarousel" role="button" data-slide="prev">
+                <span class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span>
+                <span class="sr-only">Previous</span>
+            </a>
+            <a class="right carousel-control" href="#myCarousel" role="button" data-slide="next">
+                <span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span>
+                <span class="sr-only">Next</span>
+            </a>
+        </div>*@
+
+    @*<div class="row">
+            <div class="col-md-3">
+                <h2>Application uses</h2>
+                <ul>
+                    <li>Sample pages using ASP.NET Core Razor Pages</li>
+                    <li>Theming using <a href="https://go.microsoft.com/fwlink/?LinkID=398939">Bootstrap</a></li>
+                </ul>
+            </div>
+            <div class="col-md-3">
+                <h2>How to</h2>
+                <ul>
+                    <li><a href="https://go.microsoft.com/fwlink/?linkid=852130">Working with Razor Pages.</a></li>
+                    <li><a href="https://go.microsoft.com/fwlink/?LinkId=699315">Manage User Secrets using Secret Manager.</a></li>
+                    <li><a href="https://go.microsoft.com/fwlink/?LinkId=699316">Use logging to log a message.</a></li>
+                    <li><a href="https://go.microsoft.com/fwlink/?LinkId=699317">Add packages using NuGet.</a></li>
+                    <li><a href="https://go.microsoft.com/fwlink/?LinkId=699319">Target development, staging or production environment.</a></li>
+                </ul>
+            </div>
+            <div class="col-md-3">
+                <h2>Overview</h2>
+                <ul>
+                    <li><a href="https://go.microsoft.com/fwlink/?LinkId=518008">Conceptual overview of what is ASP.NET Core</a></li>
+                    <li><a href="https://go.microsoft.com/fwlink/?LinkId=699320">Fundamentals of ASP.NET Core such as Startup and middleware.</a></li>
+                    <li><a href="https://go.microsoft.com/fwlink/?LinkId=398602">Working with Data</a></li>
+                    <li><a href="https://go.microsoft.com/fwlink/?LinkId=398603">Security</a></li>
+                    <li><a href="https://go.microsoft.com/fwlink/?LinkID=699321">Client side development</a></li>
+                    <li><a href="https://go.microsoft.com/fwlink/?LinkID=699322">Develop on different platforms</a></li>
+                    <li><a href="https://go.microsoft.com/fwlink/?LinkID=699323">Read more on the documentation site</a></li>
+                </ul>
+            </div>
+            <div class="col-md-3">
+                <h2>Run &amp; Deploy</h2>
+                <ul>
+                    <li><a href="https://go.microsoft.com/fwlink/?LinkID=517851">Run your app</a></li>
+                    <li><a href="https://go.microsoft.com/fwlink/?LinkID=517853">Run tools such as EF migrations and more</a></li>
+                    <li><a href="https://go.microsoft.com/fwlink/?LinkID=398609">Publish to Microsoft Azure App Service</a></li>
+                </ul>
+            </div>
+        </div>*@
